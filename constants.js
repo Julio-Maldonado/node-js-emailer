@@ -46,7 +46,7 @@ module.exports = {
         Messages: [
           {
             From: {
-              Email: emailAddress,
+              Email: your_email,
               Name: name,
             },
             To: [
@@ -56,7 +56,34 @@ module.exports = {
               }
             ],
             Subject: subject,
-            TextPart: "Yeux Website Inquiry",
+            TextPart: `Yeux Website Inquiry from ${emailAddress}`,
+            HTMLPart: message,
+          }
+        ]
+      }).then(result => {
+        console.log(result);
+        return true;
+      }).catch(err => {
+        console.log(err);
+        return false;
+      })
+    ),
+    yeux_request_to_client: (name, emailAddress, subject, message) => (
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: your_email,
+              Name: "Yeux",
+            },
+            To: [
+              {
+                Email: emailAddress,
+                Name: name,
+              }
+            ],
+            Subject: subject,
+            TextPart: `Yeux Website Inquiry Confirmation`,
             HTMLPart: message,
           }
         ]

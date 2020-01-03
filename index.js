@@ -53,7 +53,7 @@ app.post("/api/send_email", (req, res) => {
         console.log("email sent to", emailAddress);
       })
       .then(
-        CONSTANTS.yeux_request(
+        CONSTANTS.yeux_request_to_client(
           "Yeux",
           "julio.maldonado.guzman@gmail.com",
           "Yeux Email confirmation",
