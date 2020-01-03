@@ -55,7 +55,7 @@ app.post("/api/send_email", (req, res) => {
       .then(
         CONSTANTS.yeux_request_to_client(
           "Yeux",
-          "julio.maldonado.guzman@gmail.com",
+          emailAddress,
           "Yeux Email confirmation",
           "Your email has been received by Yeux. We will respond promptly. Have a great day!"
         )

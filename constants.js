@@ -55,7 +55,7 @@ module.exports = {
                 Name: "Yeux",
               }
             ],
-            Subject: subject,
+            Subject: `${subject} from ${emailAddress}`,
             TextPart: `Yeux Website Inquiry from ${emailAddress}`,
             HTMLPart: message,
           }
