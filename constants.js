@@ -7,7 +7,7 @@ const mailjet = require('node-mailjet').connect(key1, key2)
 module.exports = {
     DEFAULT_MESSAGE: '<h3>Howdy!</h3> <br/> <br/>'
     + "Thanks for signing up for my newsletter through <a href='https://www.juliomaldonado.com/'>juliomaldonado.com</a> :)<br/><br/>"
-    + '<img src="https://scontent-dfw5-1.cdninstagram.com/v/t51.2885-15/e35/36940224_205770806781401_4820515398602457088_n.jpg?_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=105&_nc_ohc=8SSJFNKzWHoAX-sb32-&oh=27d22134ec5c73a61c7d685ddf387e78&oe=5E8DDF3F" alt="Image of overview of Provo, Utah" height="100%" width="100%" /><br/><br/>'
+    + '<img src="https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-9/82936375_2674527952637379_9107037294249902080_o.jpg?_nc_cat=108&_nc_sid=110474&_nc_oc=AQneIhvHB4kbDdxibAuhlRkI7NEprk1C0GZMcFUQtt61BibMbH1ECO3dggUsp2ipkr4&_nc_ht=scontent-dfw5-2.xx&oh=288645aea7ea825fa8cd328cd6dd2fde&oe=5EF2CDF4" alt="Image of overview of Provo, Utah" height="100%" width="100%" /><br/><br/>'
     + "I'll share life experiences, lessons, big news, and more as they come.<br/><br/>"
     + 'Ciao!<br/><br/>'
     + '<i>Julio Maldonado</i><br/><br/><br/>'
