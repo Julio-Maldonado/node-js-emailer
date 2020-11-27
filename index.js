@@ -53,14 +53,6 @@ app.post("/api/send_email", (req, res) => {
       .then(() => {
         console.log("PPS email sent to", emailAddress);
       })
-      .then(
-        CONSTANTS.pps_confirmation_request_to_client(
-          "Yeux",
-          emailAddress,
-          "Yeux Email confirmation",
-          "Your email has been received by Yeux. We will respond promptly. Have a great day!"
-        )
-      )
       .then(result => {
         console.log(result);
         res.send({ success: true, result });
@@ -69,6 +61,12 @@ app.post("/api/send_email", (req, res) => {
         console.log(err);
         res.send({ succes: false, statusCode: err.statusCode });
       });
+    CONSTANTS.pps_confirmation_request_to_client(
+      "Yeux",
+      emailAddress,
+      "Yeux Email confirmation",
+      message
+    );
   } else if ("emailAddress" in req.body) {
     const emailAddress = req.body.emailAddress;
     const name = req.body.name;

@@ -110,8 +110,8 @@ module.exports = {
               },
               {
                 // change this to Colia's email & name
-                Email: 'juliom72@tamu.edu',
-                Name: "Julio TAMU",
+                Email: 'coliapsp@gmail.com',
+                Name: "Colia Adams",
               }
             ],
             Subject: `PPS Website Inquiry`,
@@ -142,7 +142,7 @@ module.exports = {
           {
             From: {
               Email: your_email,
-              Name: "PPS",
+              Name: "PPS Alerter",
             },
             To: [
               {
@@ -150,7 +150,7 @@ module.exports = {
                 Name: "Julio",
               }
             ],
-            Subject: subject,
+            Subject: "PPS Website Inquiry Notification",
             TextPart: `PPS Website Inquiry Notification`,
             HTMLPart: `Contact form submitted by ${emailAddress} for ${name} with the message: ${message}`,
           }
