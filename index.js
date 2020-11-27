@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-app.use(cors())
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +26,8 @@ app.use(function(req, res, next) {
     "http://127.0.0.1:7999",
     "http://localhost:7999",
     "juliomaldonado.com",
-    "yeux.tech"
+    "yeux.tech",
+    "physicianpracticingsmarter.com"
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.indexOf(origin) > -1) {
@@ -42,7 +43,33 @@ app.use(function(req, res, next) {
 
 app.post("/api/send_email", (req, res) => {
   console.log("STARTING API/SEND_EMAIL ACTION");
-  if ("emailAddress" in req.body) {
+  if ("type" in req.body && req.body.type === "pps") {
+    const emailAddress = req.body.emailAddress;
+    const name = req.body.name;
+    const subject = req.body.subject;
+    const message = req.body.message;
+
+    CONSTANTS.pps_request(name, emailAddress, subject, message)
+      .then(() => {
+        console.log("PPS email sent to", emailAddress);
+      })
+      .then(
+        CONSTANTS.pps_confirmation_request_to_client(
+          "Yeux",
+          emailAddress,
+          "Yeux Email confirmation",
+          "Your email has been received by Yeux. We will respond promptly. Have a great day!"
+        )
+      )
+      .then(result => {
+        console.log(result);
+        res.send({ success: true, result });
+      })
+      .catch(err => {
+        console.log(err);
+        res.send({ succes: false, statusCode: err.statusCode });
+      });
+  } else if ("emailAddress" in req.body) {
     const emailAddress = req.body.emailAddress;
     const name = req.body.name;
     const subject = req.body.subject;
@@ -53,7 +80,7 @@ app.post("/api/send_email", (req, res) => {
         console.log("email sent to", emailAddress);
       })
       .then(
-        CONSTANTS.yeux_request_to_client(
+        CONSTANTS.yeux_confirmation_request_to_client(
           "Yeux",
           emailAddress,
           "Yeux Email confirmation",

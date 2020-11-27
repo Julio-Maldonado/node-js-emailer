@@ -68,7 +68,7 @@ module.exports = {
         return false;
       })
     ),
-    yeux_request_to_client: (name, emailAddress, subject, message) => (
+    yeux_confirmation_request_to_client: (name, emailAddress, subject, message) => (
       mailjet.post('send', { version: 'v3.1' }).request({
         Messages: [
           {
@@ -85,6 +85,74 @@ module.exports = {
             Subject: subject,
             TextPart: `Yeux Website Inquiry Confirmation`,
             HTMLPart: message,
+          }
+        ]
+      }).then(result => {
+        console.log(result);
+        return true;
+      }).catch(err => {
+        console.log(err);
+        return false;
+      })
+    ),
+    pps_request: (name, emailAddress, subject, message) => (
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: your_email,
+              Name: name,
+            },
+            To: [
+              {
+                Email: 'julio.maldonado.guzman@gmail.com',
+                Name: "Yeux",
+              },
+              {
+                // change this to Colia's email & name
+                Email: 'juliom72@tamu.edu',
+                Name: "Julio TAMU",
+              }
+            ],
+            Subject: `PPS Website Inquiry`,
+            // Subject: `${subject} from ${emailAddress}`,
+            TextPart: `PPS Website Inquiry from ${emailAddress}`,
+            HTMLPart: `
+              Subject: ${subject}<br/>
+              Message: ${message}<br/>
+              From: ${emailAddress}<br/>
+              Name: ${name}<br/>
+              <br/>
+              <br/>
+              Respond to this inquiry by selecting <a href="mailto:${emailAddress}?subject=Physician Practicing Smarter Response&body=Thank you for contacting PPS about ${subject}!">this link</a>.
+            `,
+          }
+        ]
+      }).then(result => {
+        console.log(result);
+        return true;
+      }).catch(err => {
+        console.log(err);
+        return false;
+      })
+    ),
+    pps_confirmation_request_to_client: (name, emailAddress, subject, message) => (
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: your_email,
+              Name: "PPS",
+            },
+            To: [
+              {
+                Email: "julio.maldonado.guzman@gmail.com",
+                Name: "Julio",
+              }
+            ],
+            Subject: subject,
+            TextPart: `PPS Website Inquiry Notification`,
+            HTMLPart: `Contact form submitted by ${emailAddress} for ${name} with the message: ${message}`,
           }
         ]
       }).then(result => {
