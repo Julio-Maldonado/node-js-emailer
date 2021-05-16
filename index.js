@@ -43,30 +43,56 @@ app.use(function(req, res, next) {
 
 app.post("/api/send_email", (req, res) => {
   console.log("STARTING API/SEND_EMAIL ACTION");
-  if ("type" in req.body && req.body.type === "pps") {
-    const emailAddress = req.body.emailAddress;
-    const name = req.body.name;
-    const subject = req.body.subject;
-    const message = req.body.message;
+  if ("type" in req.body) {
+    if (req.body.type === "pps") {
+      const emailAddress = req.body.emailAddress;
+      const name = req.body.name;
+      const subject = req.body.subject;
+      const message = req.body.message;
 
-    CONSTANTS.pps_request(name, emailAddress, subject, message)
-      .then(() => {
-        console.log("PPS email sent to", emailAddress);
-      })
-      .then(result => {
-        console.log(result);
-        res.send({ success: true, result });
-      })
-      .catch(err => {
-        console.log(err);
-        res.send({ succes: false, statusCode: err.statusCode });
-      });
-    CONSTANTS.pps_confirmation_request_to_client(
-      "Yeux",
-      emailAddress,
-      "Yeux Email confirmation",
-      message
-    );
+      CONSTANTS.pps_request(name, emailAddress, subject, message)
+        .then(() => {
+          console.log("PPS email sent to", emailAddress);
+        })
+        .then(result => {
+          console.log(result);
+          res.send({ success: true, result });
+        })
+        .catch(err => {
+          console.log(err);
+          res.send({ succes: false, statusCode: err.statusCode });
+        }); 
+      CONSTANTS.pps_confirmation_request_to_client(
+        "Yeux",
+        emailAddress,
+        "Yeux Email confirmation",
+        message
+      );
+    } else if (req.body.type === "PERSONAL_SITE_CONTACT_REQUEST") {
+      const emailAddress = req.body.emailAddress;
+      const name = req.body.name;
+      const subject = req.body.subject;
+      const message = req.body.message;
+
+      CONSTANTS.personal_site_contact_request(name, emailAddress, subject, message)
+        .then(() => {
+          console.log("Personal website email sent to", emailAddress);
+        })
+        .then(result => {
+          console.log(result);
+          res.send({ success: true, result });
+        })
+        .catch(err => {
+          console.log(err);
+          res.send({ succes: false, statusCode: err.statusCode });
+        });
+      CONSTANTS.pps_confirmation_request_to_client(
+        "Personal Contact Request",
+        emailAddress,
+        "Personal Contact Request Confirmation",
+        message
+      );
+    }
   } else if ("emailAddress" in req.body) {
     const emailAddress = req.body.emailAddress;
     const name = req.body.name;

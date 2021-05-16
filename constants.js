@@ -1,8 +1,8 @@
-const your_name = 'Julio Maldonado', your_email = 'julioharlingen@gmail.com'
+const your_name = 'Julio Maldonado', your_email = 'julioharlingen@gmail.com';
 
-const key1 = 'c5fc907dcda19f8cefb3be106edfc67f', key2 = 'c179b4d9b4ee638401c04d18fd60a789'
+const key1 = 'c5fc907dcda19f8cefb3be106edfc67f', key2 = 'c179b4d9b4ee638401c04d18fd60a789';
 
-const mailjet = require('node-mailjet').connect(key1, key2)
+const mailjet = require('node-mailjet').connect(key1, key2);
 
 module.exports = {
     DEFAULT_MESSAGE: '<h3>Howdy!</h3> <br/> <br/>'
@@ -152,6 +152,69 @@ module.exports = {
             ],
             Subject: "PPS Website Inquiry Notification",
             TextPart: `PPS Website Inquiry Notification`,
+            HTMLPart: `Contact form submitted by ${emailAddress} for ${name} with the message: ${message}`,
+          }
+        ]
+      }).then(result => {
+        console.log(result);
+        return true;
+      }).catch(err => {
+        console.log(err);
+        return false;
+      })
+    ),
+    personal_site_contact_request: (name, emailAddress, subject, message) => (
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: your_email,
+              Name: name,
+            },
+            To: [
+              {
+                Email: 'julio.maldonado.guzman@gmail.com',
+                Name: 'Julio Maldonado',
+              }
+            ],
+            Subject: `Personal Website Inquiry`,
+            // Subject: `${subject} from ${emailAddress}`,
+            TextPart: `Personal Website Inquiry from ${emailAddress}`,
+            HTMLPart: `
+              Subject: ${subject}<br/>
+              Message: ${message}<br/>
+              From: ${emailAddress}<br/>
+              Name: ${name}<br/>
+              <br/>
+              <br/>
+              Respond to this inquiry by selecting <a href="mailto:${emailAddress}?subject=Julio Maldonado - My Response&body=Thank you for contacting me about ${subject}!">this link</a>.
+            `,
+          }
+        ]
+      }).then(result => {
+        console.log(result);
+        return true;
+      }).catch(err => {
+        console.log(err);
+        return false;
+      })
+    ),
+    personal_site_contact_request_confirmation: (name, emailAddress, subject, message) => (
+      mailjet.post('send', { version: 'v3.1' }).request({
+        Messages: [
+          {
+            From: {
+              Email: your_email,
+              Name: "Personal Website Inquiry Alerter",
+            },
+            To: [
+              {
+                Email: "julio.maldonado.guzman@gmail.com",
+                Name: "Julio Maldonado",
+              }
+            ],
+            Subject: "Personal Website Inquiry Notification",
+            TextPart: `Personal Website Inquiry Notification`,
             HTMLPart: `Contact form submitted by ${emailAddress} for ${name} with the message: ${message}`,
           }
         ]
