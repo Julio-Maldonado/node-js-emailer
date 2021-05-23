@@ -86,7 +86,7 @@ app.post("/api/send_email", (req, res) => {
           console.log(err);
           res.send({ succes: false, statusCode: err.statusCode });
         });
-      CONSTANTS.pps_confirmation_request_to_client(
+      CONSTANTS.personal_site_contact_request_confirmation(
         "Personal Contact Request",
         emailAddress,
         "Personal Contact Request Confirmation",
